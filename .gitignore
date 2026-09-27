@@ -1,0 +1,14 @@
+# Next.js
+web/.next/
+web/node_modules/
+web/.env.local
+
+# Python
+api/.venv/
+api/__pycache__/
+api/**/__pycache__/
+api/.env
+
+# General
+.DS_Store
+*.log

@@ -1,0 +1,200 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Raw Form design tokens ─────────────────────────────────── */
+:root {
+  --rf-base:    #E4E2DD;
+  --rf-primary: #1E1E1E;
+  --rf-accent:  #DB4A2B;
+  --rf-warm:    #F8A348;
+  --rf-pink:    #FF89A9;
+  --rf-muted:   #D9D6D0;
+  --rf-dark:    #1E1E1E;
+}
+
+/* ── Base reset ─────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--rf-base);
+  color: var(--rf-primary);
+  font-family: 'Satoshi', system-ui, -apple-system, sans-serif;
+}
+
+/* ── Selection ──────────────────────────────────────────────── */
+::selection {
+  background-color: var(--rf-accent);
+  color: #ffffff;
+}
+
+/* ── Scrollbar ──────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--rf-base); }
+::-webkit-scrollbar-thumb { background: var(--rf-accent); border-radius: 0; }
+::-webkit-scrollbar-thumb:hover { background: #c03d22; }
+
+/* ── Animations ─────────────────────────────────────────────── */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes blobPulse {
+  0%, 100% { opacity: 0.55; transform: translate(0, 0) scale(1); }
+  50%       { opacity: 0.85; transform: translate(2%, 2%) scale(1.05); }
+}
+@keyframes blobPulse2 {
+  0%, 100% { opacity: 0.45; transform: translate(0, 0) scale(1); }
+  50%       { opacity: 0.75; transform: translate(-3%, 1.5%) scale(1.07); }
+}
+@keyframes blobPulse3 {
+  0%, 100% { opacity: 0.35; transform: translate(0, 0) scale(1); }
+  33%       { opacity: 0.6; transform: translate(1%, -2%) scale(1.04); }
+  66%       { opacity: 0.5; transform: translate(-1%, 1%) scale(0.98); }
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.animate-slide-up   { animation: slideUp    0.8s cubic-bezier(0.16,1,0.3,1) both; }
+.animate-blob        { animation: blobPulse  12s ease-in-out infinite; }
+.animate-blob-2      { animation: blobPulse2 15s ease-in-out infinite; }
+.animate-blob-3      { animation: blobPulse3 18s ease-in-out infinite; }
+.animate-spin-slow   { animation: spin       1s linear infinite; }
+.animate-fade-in     { animation: fadeIn     0.4s ease both; }
+
+/* Staggered delay helpers */
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+.delay-600 { animation-delay: 0.6s; }
+.delay-700 { animation-delay: 0.7s; }
+
+/* ── Safe area insets for PWA ────────────────────────────────── */
+.safe-top    { padding-top: env(safe-area-inset-top); }
+.safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
+
+/* ── Raw Form component classes ──────────────────────────────── */
+@layer components {
+
+  /* CTA button — directional fill on hover */
+  .rf-btn {
+    @apply relative inline-flex items-center justify-center gap-2 overflow-hidden;
+    @apply px-6 py-3 text-sm font-medium tracking-wide cursor-pointer;
+    background: var(--rf-primary);
+    color: #E4E2DD;
+    border-radius: 0;
+    border: none;
+    transition: color 0.3s ease-out;
+    white-space: nowrap;
+  }
+  .rf-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: #ffffff;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-out;
+    z-index: 0;
+  }
+  .rf-btn:hover::before { transform: translateX(0); }
+  .rf-btn:hover { color: var(--rf-accent); }
+  .rf-btn span, .rf-btn svg { position: relative; z-index: 1; }
+  .rf-btn:disabled { opacity: 0.4; cursor: not-allowed; pointer-events: none; }
+
+  /* Ghost button */
+  .rf-btn-ghost {
+    @apply relative inline-flex items-center justify-center gap-2 cursor-pointer;
+    @apply px-6 py-3 text-sm font-medium tracking-wide;
+    background: transparent;
+    color: var(--rf-primary);
+    border: 1.5px solid var(--rf-primary);
+    border-radius: 0;
+    transition: background 0.2s ease, color 0.2s ease;
+    white-space: nowrap;
+  }
+  .rf-btn-ghost:hover {
+    background: var(--rf-primary);
+    color: var(--rf-base);
+  }
+
+  /* Accent ghost button */
+  .rf-btn-accent {
+    @apply relative inline-flex items-center justify-center gap-2 cursor-pointer overflow-hidden;
+    @apply px-6 py-3 text-sm font-medium tracking-wide;
+    background: var(--rf-accent);
+    color: #ffffff;
+    border-radius: 0;
+    border: none;
+    transition: color 0.3s ease-out;
+    white-space: nowrap;
+  }
+  .rf-btn-accent::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: #ffffff;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-out;
+    z-index: 0;
+  }
+  .rf-btn-accent:hover::before { transform: translateX(0); }
+  .rf-btn-accent:hover { color: var(--rf-accent); }
+  .rf-btn-accent span, .rf-btn-accent svg { position: relative; z-index: 1; }
+
+  /* Card */
+  .rf-card {
+    background: #ffffff;
+    border: 1.5px solid rgba(30,30,30,0.08);
+    border-radius: 0;
+    overflow: hidden;
+  }
+
+  /* Input */
+  .rf-input {
+    @apply w-full px-4 py-3 text-sm;
+    background: var(--rf-base);
+    border: 1.5px solid rgba(30,30,30,0.2);
+    border-radius: 0;
+    color: var(--rf-primary);
+    font-family: 'Satoshi', sans-serif;
+    transition: border-color 0.2s;
+    outline: none;
+  }
+  .rf-input:focus { border-color: var(--rf-accent); }
+  .rf-input::placeholder { color: rgba(30,30,30,0.35); }
+
+  /* Status pill */
+  .rf-pill {
+    @apply inline-flex items-center gap-1 px-2.5 py-0.5 text-xs font-medium uppercase tracking-widest;
+  }
+
+  /* Section label */
+  .rf-label {
+    @apply text-xs font-medium uppercase tracking-[0.18em];
+    color: rgba(30,30,30,0.45);
+  }
+
+  /* Divider line */
+  .rf-divider {
+    border: none;
+    border-top: 1.5px solid rgba(30,30,30,0.1);
+  }
+
+  /* Legacy compat aliases used in existing code */
+  .btn-primary   { @apply rf-btn; }
+  .btn-secondary { @apply rf-btn-ghost; }
+  .card          { @apply rf-card; }
+  .input         { @apply rf-input; }
+  .badge         { @apply rf-pill; }
+}
