@@ -1,5 +1,5 @@
 # Touse
-# AI Powered Furniture Marketplace Extension
+## AI Powered Furniture Marketplace Extension
 
 > **Empty room → fully furnished** using real nearby second-hand listings, in minutes.
 
