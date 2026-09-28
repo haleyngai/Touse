@@ -7,6 +7,17 @@ Touse is a full-stack web + mobile PWA that takes a photo of an empty room, gene
 
 ---
 
+## Mobile App User Flow
+
+1. **Photograph** Scans empty room on phone
+2. **AI generates 3 designs** — each item is a real nearby listing (price, distance, photo)
+3. 🛒 **Pick items** across designs, tap **"Message All Sellers"** — auto texts every seller
+4. **Seller replies** surface in real-time inbox (Supabase Realtime + Twilio webhooks)
+5. **Mark as Purchased** → saved to My Furniture
+6. ♻️ **One-tap Resell** → AI generates listing → opens pre-filled Facebook Marketplace
+
+---
+
 ## Architecture
 
 ```
@@ -32,16 +43,6 @@ Touse is a full-stack web + mobile PWA that takes a photo of an empty room, gene
 
 ---
 
-## North Star User Flow
-
-1. 📸 **Photograph** empty room on phone
-2. 🎨 **AI generates 3 designs** — each item is a real nearby listing (price, distance, photo)
-3. 🛒 **Pick items** across designs, tap **"Message All Sellers"** — AI texts every seller
-4. 💬 **Seller replies** surface in real-time inbox (Supabase Realtime + Twilio webhooks)
-5. ✅ **Mark as Purchased** → saved to My Furniture
-6. ♻️ **One-tap Resell** → AI generates listing → opens pre-filled Facebook Marketplace
-
----
 
 ## Prerequisites
 
